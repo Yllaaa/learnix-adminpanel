@@ -116,9 +116,6 @@ const propertyConfigs = {
     type: 'number',
     isVisible: { list: true, show: true, edit: true, filter: true },
   },
-  city_id: {
-    isVisible: { list: true, show: true, edit: true, filter: true },
-  },
   picture: {
     type: 'string',
     components: { edit: Components.ImageUploader },
@@ -222,7 +219,7 @@ export default {
     listProperties: [],
     showProperties: [],
     editProperties: [],
-    filterProperties: ['title_en', 'city_id', 'start_date'],
+    filterProperties: ['title_en', 'start_date'],
 
     actions: {
       new: {
@@ -232,24 +229,17 @@ export default {
         after: async (response, request, context) => {
           const { outcomes, curriculum, categories, trainers, ...courseData } = request.payload;
 
-          const courseResult = await client.query(
-            `INSERT INTO courses (name, title_en, title_ar, description_en, description_ar, start_date, price, city_id, picture)
-                   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-                   RETURNING id`,
-            [
-              courseData.name,
-              courseData.title_en,
-              courseData.title_ar,
-              courseData.description_en,
-              courseData.description_ar,
-              courseData.start_date,
-              courseData.price,
-              courseData.city_id,
-              courseData.picture,
-            ]
+          const result = await client.query(
+            `SELECT id 
+           FROM courses 
+           WHERE name = $1 AND title_en = $2 AND title_ar = $3 
+             AND start_date = $4 AND price = $5
+           ORDER BY created_at DESC
+           LIMIT 1`,
+            [courseData.name, courseData.title_en, courseData.title_ar, courseData.start_date, courseData.price]
           );
 
-          const courseId = courseResult.rows[0].id;
+          const courseId = result.rows[0]?.id;
           if (courseId) {
             await handleCustomPropertiesAfter(response, context, courseId, true);
           }
