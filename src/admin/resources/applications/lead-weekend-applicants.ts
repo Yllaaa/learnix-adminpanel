@@ -23,6 +23,10 @@ export default {
         isRequired: true,
         isVisible: { list: true, show: true, edit: true, filter: true },
       },
+      phone_number: {
+        isRequired: true,
+        isVisible: { list: true, show: true, edit: true, filter: true },
+      },
       company_name: {
         isRequired: true,
         isVisible: { list: true, show: true, edit: true, filter: true },
