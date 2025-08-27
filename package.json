@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@adminjs/express": "^6.1.0",
-    "@adminjs/sql": "^2.2.1",
+    "@adminjs/sql": "^2.2.6",
     "@types/pg": "^8.15.5",
-    "adminjs": "^7.7.2",
+    "adminjs": "^7.8.17",
     "aws-sdk": "^2.1692.0",
     "express": "^4.18.2",
     "express-formidable": "^1.2.0",

@@ -28,11 +28,11 @@ export default {
         isVisible: { list: true, show: true, edit: true, filter: true },
       },
       city_id: {
-        reference: 'cities.id',
+        reference: 'cities',
         isVisible: { list: true, show: true, edit: true, filter: true },
       },
       trainer_id: {
-        reference: 'trainers.id',
+        reference: 'trainers',
         isVisible: { list: true, show: true, edit: true, filter: true },
       },
       status: {
